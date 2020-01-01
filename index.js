@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = 5000;
 
 const bcrypt = require('bcrypt');
@@ -17,6 +18,7 @@ const db = new sqlite3.Database('./database/database.sqlite3', (err) => {
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Good morning!');
@@ -52,8 +54,9 @@ app.post('/api/auth/register/', (req, res) => {
 })
 
 app.post('/api/auth/login/',(req,res) => {
-  const sql = 'select * from users where email = ?'
-  const params = [req.body.email]
+  return console.log(req.body);
+  const sql = 'select * from users where email = ?';
+  const params = [req.body.email];
   db.get(sql, params, (err, user) => {
     if (err) {
       return res.status(400).json({"error":err.message});
