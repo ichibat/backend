@@ -85,6 +85,10 @@ app.post('/api/auth/login/',(req,res) => {
 
 app.get('/api/auth/user/',(req,res) => {
 
+  const headers = req.headers;
+
+  return console.log(headers);  
+
   const bearToken = req.headers['authorization']
   const bearer = bearToken.split(' ')
   const token = bearer[1]
